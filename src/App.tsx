@@ -11,7 +11,12 @@ function App() {
       tasks: taskInColumn,
     };
   });
-
+  const updateTaskTitle = (title: string, id: string) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, title } : task
+    );
+    setTasks(updatedTasks);
+  };
   useEffect(() => {
     setTasks(data.tasks);
   }, []);
@@ -22,7 +27,7 @@ function App() {
         <div>
           <h1>{column.status}</h1>
           {column.tasks.map((task) => (
-            <TaskCard task={task} />
+            <TaskCard task={task} updateTaskTitle={updateTaskTitle} />
           ))}
         </div>
       ))}
